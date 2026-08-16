@@ -130,45 +130,78 @@ function scrollToSection(id) {
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
-function PausedLoopVideo({ className, poster }) {
+const HERO_VIDEO_SRC = "/assets/hero/hero-video.mp4";
+const HERO_RESTART_DELAY_MS = 60000;
+
+function PausedLoopVideo({ className }) {
   const videoRef = useRef(null);
 
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return undefined;
 
-    let timer = 0;
-    const restartDelay = 60000;
+    let restartTimer = 0;
+    let restartAt = 0;
+    let disposed = false;
 
-    const restart = () => {
-      timer = window.setTimeout(() => {
-        video.currentTime = 0;
-        video.play().catch(() => undefined);
-      }, restartDelay);
+    const clearRestart = () => {
+      window.clearTimeout(restartTimer);
+      restartTimer = 0;
     };
 
-    const playNow = () => {
+    const playVideo = () => {
+      if (disposed) return;
       video.muted = true;
       video.playsInline = true;
       video.play().catch(() => undefined);
     };
 
-    video.addEventListener("ended", restart);
-    video.addEventListener("loadeddata", playNow);
-    video.addEventListener("canplay", playNow);
-    playNow();
+    const restartFromBeginning = () => {
+      clearRestart();
+      restartAt = 0;
+      video.currentTime = 0;
+      playVideo();
+    };
+
+    const scheduleRestart = () => {
+      clearRestart();
+      restartAt = Date.now() + HERO_RESTART_DELAY_MS;
+      restartTimer = window.setTimeout(restartFromBeginning, HERO_RESTART_DELAY_MS);
+    };
+
+    const handleVisibilityChange = () => {
+      if (document.hidden || !restartAt) return;
+
+      const remaining = restartAt - Date.now();
+      clearRestart();
+      if (remaining <= 0) {
+        restartFromBeginning();
+      } else {
+        restartTimer = window.setTimeout(restartFromBeginning, remaining);
+      }
+    };
+
+    video.addEventListener("ended", scheduleRestart);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    if (video.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA) {
+      playVideo();
+    } else {
+      video.addEventListener("canplay", playVideo, { once: true });
+    }
 
     return () => {
-      window.clearTimeout(timer);
-      video.removeEventListener("ended", restart);
-      video.removeEventListener("loadeddata", playNow);
-      video.removeEventListener("canplay", playNow);
+      disposed = true;
+      clearRestart();
+      video.removeEventListener("ended", scheduleRestart);
+      video.removeEventListener("canplay", playVideo);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
   }, []);
 
   return (
-    <video ref={videoRef} className={className} muted playsInline autoPlay preload="auto" poster={poster}>
-      <source src="/assets/hero/hero-video.mp4" type="video/mp4" />
+    <video ref={videoRef} className={className} muted playsInline autoPlay preload="auto">
+      <source src={HERO_VIDEO_SRC} type="video/mp4" />
     </video>
   );
 }
@@ -511,7 +544,7 @@ function App() {
               </text>
             </svg>
             <div className="characterFrame">
-              <PausedLoopVideo className="characterVideo" poster="/assets/portrait/chen-xinzhu.png" />
+              <PausedLoopVideo className="characterVideo" />
             </div>
             <span className="characterTag">CREATIVE<br />OPERATOR</span>
           </div>
