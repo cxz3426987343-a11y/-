@@ -2,20 +2,27 @@ import React, { useEffect, useRef, useState } from "react";
 import BlurText from "./BlurText";
 import "./VideoPortfolio.css";
 
+const remoteVideoBaseUrl = (import.meta.env.VITE_MEDIA_BASE_URL || "").replace(/\/$/, "");
+
+function getVideoSource(id, localSource) {
+  if (remoteVideoBaseUrl) return `${remoteVideoBaseUrl}/${id}.mp4`;
+  return localSource;
+}
+
 const videoWorks = [
-  { id: "01", title: "乘风破浪的SISUer 先导片", type: "综艺", src: "/assets/video/01.mp4", tone: "lime" },
-  { id: "02", title: "千秋红岩", type: "纪录片", src: "/assets/video/02.mp4", tone: "coral" },
-  { id: "03", title: "we are one", type: "微电影", src: "/assets/video/03.mp4", tone: "blue" },
-  { id: "04", title: "帧心实译，影像中国", type: "项目宣传片", src: "/assets/video/04.mp4", tone: "yellow" },
-  { id: "05", title: "明德秘史", type: "话剧宣传片", src: "/assets/video/05.mp4", tone: "mint" },
-  { id: "06", title: "懂车帝启动会片头", type: "动画", src: "/assets/video/06.mp4", tone: "pink" },
-  { id: "07", title: "印象·国风", type: "动画", src: "/assets/video/07.mp4", tone: "lime" },
-  { id: "08", title: "love movie", type: "动画", src: "/assets/video/08.mp4", tone: "coral" },
-  { id: "09", title: "中国短片出海记", type: "短视频", src: "/assets/video/09.mp4", tone: "blue" },
-  { id: "10", title: "他至人间", type: "AI动画", src: "/assets/video/10.m4v", tone: "yellow" },
-  { id: "11", title: "青春日记", type: "微电影", src: "/assets/video/11.mp4", tone: "mint" },
-  { id: "12", title: "行进使命的思政课", type: "活动记录", src: "/assets/video/12.mp4", tone: "pink" },
-  { id: "13", title: "赎罪电影剪辑", type: "影视混剪", src: "/assets/video/13.mp4", tone: "lime" },
+  { id: "01", title: "乘风破浪的SISUer 先导片", type: "综艺", src: getVideoSource("01", "/assets/video/01.mp4"), tone: "lime" },
+  { id: "02", title: "千秋红岩", type: "纪录片", src: getVideoSource("02", "/assets/video/02.mp4"), tone: "coral" },
+  { id: "03", title: "we are one", type: "微电影", src: getVideoSource("03", "/assets/video/03.mp4"), tone: "blue" },
+  { id: "04", title: "帧心实译，影像中国", type: "项目宣传片", src: getVideoSource("04", "/assets/video/04.mp4"), tone: "yellow" },
+  { id: "05", title: "明德秘史", type: "话剧宣传片", src: getVideoSource("05", "/assets/video/05.mp4"), tone: "mint" },
+  { id: "06", title: "懂车帝启动会片头", type: "动画", src: getVideoSource("06", "/assets/video/06.mp4"), tone: "pink" },
+  { id: "07", title: "印象·国风", type: "动画", src: getVideoSource("07", "/assets/video/07.mp4"), tone: "lime" },
+  { id: "08", title: "love movie", type: "动画", src: getVideoSource("08", "/assets/video/08.mp4"), tone: "coral" },
+  { id: "09", title: "中国短片出海记", type: "短视频", src: getVideoSource("09", "/assets/video/09.mp4"), tone: "blue" },
+  { id: "10", title: "他至人间", type: "AI动画", src: getVideoSource("10", "/assets/video/10.m4v"), tone: "yellow" },
+  { id: "11", title: "青春日记", type: "微电影", src: getVideoSource("11", "/assets/video/11.mp4"), tone: "mint" },
+  { id: "12", title: "行进使命的思政课", type: "活动记录", src: getVideoSource("12", "/assets/video/12.mp4"), tone: "pink" },
+  { id: "13", title: "赎罪电影剪辑", type: "影视混剪", src: getVideoSource("13", "/assets/video/13.mp4"), tone: "lime" },
 ];
 
 export default function VideoPortfolio() {
