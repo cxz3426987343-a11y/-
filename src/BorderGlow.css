@@ -1,0 +1,82 @@
+.borderGlow {
+  --glow-strength: .18;
+  position: relative;
+  min-width: 0;
+  border: 1px solid rgba(198, 238, 77, .42);
+  border-radius: 7px;
+  isolation: isolate;
+  padding: 1px;
+  background: rgba(17, 18, 15, .86);
+}
+
+/* Four independent edge highlights create a perimeter sweep without rotating the card. */
+.borderGlow::before,
+.borderGlow::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: calc(.24 + var(--glow-strength) * .76);
+  transition: opacity .35s ease;
+  background:
+    linear-gradient(90deg, transparent, rgba(255,255,255,.98), rgba(198,238,77,.95), transparent) -34% 0 / 34% 2px no-repeat,
+    linear-gradient(180deg, transparent, rgba(198,238,77,.98), rgba(255,255,255,.9), transparent) 100% -34% / 2px 34% no-repeat,
+    linear-gradient(270deg, transparent, rgba(255,255,255,.98), rgba(198,238,77,.95), transparent) 134% 100% / 34% 2px no-repeat,
+    linear-gradient(0deg, transparent, rgba(198,238,77,.98), rgba(255,255,255,.9), transparent) 0 134% / 2px 34% no-repeat;
+  animation: borderGlowTravel 5.8s linear infinite;
+}
+
+.borderGlow::before {
+  z-index: 2;
+}
+
+.borderGlow::after {
+  z-index: 1;
+  opacity: calc(.1 + var(--glow-strength) * .45);
+  filter: blur(8px);
+  animation-delay: -2.9s;
+}
+
+.borderGlowInner {
+  position: relative;
+  z-index: 3;
+  min-width: 0;
+  height: 100%;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+@keyframes borderGlowTravel {
+  0% {
+    background-position: -34% 0, 100% -34%, 134% 100%, 0 134%;
+  }
+  24% {
+    background-position: 100% 0, 100% -34%, 134% 100%, 0 134%;
+  }
+  25% {
+    background-position: 100% 0, 100% -34%, 134% 100%, 0 134%;
+  }
+  49% {
+    background-position: 100% 0, 100% 100%, 134% 100%, 0 134%;
+  }
+  50% {
+    background-position: 100% 0, 100% 100%, 134% 100%, 0 134%;
+  }
+  74% {
+    background-position: 100% 0, 100% 100%, -34% 100%, 0 134%;
+  }
+  75% {
+    background-position: 100% 0, 100% 100%, -34% 100%, 0 134%;
+  }
+  100% {
+    background-position: 100% 0, 100% 100%, -34% 100%, 0 -34%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .borderGlow::before,
+  .borderGlow::after {
+    animation: none;
+  }
+}

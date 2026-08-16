@@ -1,0 +1,193 @@
+.operationsPortfolio {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: 68px 30px 52px;
+  border-top: 1px solid var(--line);
+  background:
+    linear-gradient(rgba(17,18,15,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(17,18,15,.04) 1px, transparent 1px),
+    var(--paper);
+  background-size: 44px 44px, 44px 44px, auto;
+}
+
+.operationsPortfolio::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 22% -16% 12%;
+  background: linear-gradient(102deg, transparent 10%, rgba(198,238,77,.14) 36%, rgba(155,203,212,.12) 53%, rgba(232,154,130,.1) 72%, transparent 91%);
+  filter: blur(42px);
+}
+
+.operationsHeader { max-width: 820px; margin: 0 auto 42px; text-align: center; }
+.operationsHeader > span { color: var(--lime-deep); font-size: 12px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
+.operationsHeader h3 { margin: 10px 0 0; font-family: Georgia, "Times New Roman", serif; font-size: 62px; font-style: italic; font-weight: 400; line-height: 1.1; }
+.operationsHeader p { margin: 14px auto 0; color: var(--muted); font-size: 14px; }
+
+.operationsStage { min-height: 820px; position: relative; display: grid; grid-template-columns: minmax(160px, 1fr) minmax(360px, 470px) minmax(160px, 1fr); align-items: center; gap: 34px; max-width: 1280px; margin: 0 auto; }
+.operationsStage::before { content: ""; position: absolute; z-index: -1; width: 620px; height: 620px; left: 50%; top: 50%; border: 1px solid rgba(17,18,15,.1); border-radius: 50%; transform: translate(-50%, -50%); }
+.operationsStage::after { content: ""; position: absolute; z-index: -1; width: 360px; height: 360px; left: 50%; top: 50%; border: 1px dashed rgba(107,124,38,.24); border-radius: 50%; transform: translate(-50%, -50%) rotate(22deg); }
+.operationsStageMeta { align-self: start; padding-top: 120px; color: var(--ink); }
+.operationsStageMeta > span { color: var(--lime-deep); font-family: "Courier New", monospace; font-size: 10px; font-weight: 800; letter-spacing: .08em; }
+.operationsStageMeta strong { display: block; margin-top: 28px; color: rgba(17,18,15,.22); font-family: "Courier New", monospace; font-size: clamp(28px, 3vw, 52px); line-height: .88; letter-spacing: -.07em; }
+.operationsStageMeta p { margin: 28px 0 0; color: var(--muted); font-size: 12px; line-height: 1.7; }
+
+.phoneFrame { width: min(460px, 36vw); aspect-ratio: 9 / 18.6; min-height: 690px; position: relative; justify-self: center; padding: 11px; border: 1px solid rgba(244,240,232,.7); border-radius: 54px; background: linear-gradient(145deg, #373934, #11130f 48%, #252720); box-shadow: 0 32px 56px rgba(17,18,15,.26), inset 2px 2px 0 rgba(255,255,255,.16), inset -3px -4px 0 rgba(0,0,0,.45); transform: translateY(16px); animation: phoneEnter 720ms cubic-bezier(.16,1,.3,1) both; }
+.phoneFrame::before { content: ""; position: absolute; z-index: 3; inset: 3px; border: 1px solid rgba(244,240,232,.18); border-radius: 50px; pointer-events: none; }
+.phoneScreen { width: 100%; height: 100%; position: relative; overflow: hidden; border: 1px solid rgba(0,0,0,.9); border-radius: 44px; background: #10150f; box-shadow: inset 0 0 0 4px rgba(0,0,0,.18); touch-action: pan-y; }
+.phoneSpeaker { width: 92px; height: 24px; position: absolute; z-index: 8; top: 19px; left: 50%; border-radius: 0 0 16px 16px; background: #070806; transform: translateX(-50%); box-shadow: 0 2px 0 rgba(255,255,255,.08); }
+.phoneCamera { width: 7px; height: 7px; position: absolute; z-index: 9; top: 27px; left: calc(50% + 30px); border: 1px solid rgba(255,255,255,.2); border-radius: 50%; background: #17222d; box-shadow: 0 0 7px rgba(104,180,230,.35); }
+.phoneSideButton { width: 4px; position: absolute; left: -3px; border-radius: 3px 0 0 3px; background: #141611; box-shadow: -1px 0 0 rgba(244,240,232,.2); }
+.phoneSideButtonTop { height: 54px; top: 154px; }
+.phoneSideButtonBottom { height: 76px; top: 230px; }
+
+.opsScreenView { width: 100%; height: 100%; position: relative; overflow: hidden; }
+.opsLockScreen { height: 100%; position: relative; display: grid; grid-template-rows: auto auto 1fr auto; padding: 62px 28px 34px; color: var(--paper); background: radial-gradient(circle at 70% 26%, rgba(198,238,77,.18), transparent 27%), linear-gradient(145deg, #0b120d, #19251a 55%, #28371f); transform: translateY(var(--unlock-offset)); transition: transform 220ms cubic-bezier(.16,1,.3,1); }
+.opsLockScreen::before { content: ""; position: absolute; inset: 0; opacity: .35; background: linear-gradient(rgba(244,240,232,.03) 1px, transparent 1px), linear-gradient(90deg, rgba(244,240,232,.03) 1px, transparent 1px); background-size: 22px 22px; pointer-events: none; }
+.opsLockTop, .opsHomeFooter, .opsStatusBar { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 12px; font-family: "Courier New", monospace; font-size: 9px; font-weight: 700; letter-spacing: .07em; }
+.opsLockTop { color: rgba(244,240,232,.58); }
+.opsLockTime { position: relative; margin-top: 34px; }
+.opsLockTime span { display: block; font-family: "Arial Narrow", "Roboto Condensed", sans-serif; font-size: clamp(58px, 8vw, 88px); font-weight: 300; letter-spacing: -.07em; line-height: .82; }
+.opsLockTime sup { margin-left: 7px; color: var(--lime); font-family: "Courier New", monospace; font-size: 15px; font-weight: 700; letter-spacing: 0; vertical-align: top; }
+.opsLockTime small { display: block; margin-top: 14px; color: var(--lime); font-family: "Courier New", monospace; font-size: 9px; letter-spacing: .08em; }
+.opsLockArtwork { min-height: 360px; position: relative; align-self: center; display: flex; align-items: flex-end; justify-content: space-between; overflow: hidden; padding: 20px 2px; border: 1px solid rgba(244,240,232,.18); border-radius: 26px; color: rgba(244,240,232,.62); background: rgba(244,240,232,.05); box-shadow: inset 0 0 40px rgba(198,238,77,.08), 0 18px 40px rgba(0,0,0,.16); font-family: "Courier New", monospace; font-size: 24px; font-weight: 800; letter-spacing: -.08em; line-height: .9; }
+.opsLockArtwork::after { content: ""; position: absolute; inset: 0; background: linear-gradient(145deg, transparent 35%, rgba(198,238,77,.22), transparent 66%); mix-blend-mode: screen; animation: lockGlow 7s ease-in-out infinite alternate; pointer-events: none; }
+.opsLockArtwork img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 23%; opacity: .56; mix-blend-mode: screen; filter: saturate(.82) contrast(1.08); animation: lockPortraitDrift 8s ease-in-out infinite alternate; }
+.opsLockArtwork span, .opsLockArtwork i { position: relative; z-index: 1; }
+.opsLockArtwork i { color: var(--lime); font-size: 68px; font-style: normal; animation: lockOrbit 5s ease-in-out infinite alternate; }
+.opsUnlockCue { position: relative; display: grid; justify-items: center; gap: 7px; width: 100%; padding: 0; border: 0; color: inherit; background: transparent; text-align: center; cursor: pointer; }
+.opsUnlockCue:focus-visible { outline: 1px solid var(--lime); outline-offset: 9px; }
+.opsSwipeArrow { width: 34px; height: 34px; display: grid; place-items: center; border: 1px solid rgba(198,238,77,.68); border-radius: 50%; color: var(--lime); font-size: 20px; animation: unlockCue 1.8s ease-in-out infinite; }
+.opsUnlockCue strong { font-size: 13px; font-weight: 500; }
+.opsUnlockCue small { color: rgba(244,240,232,.48); font-family: "Courier New", monospace; font-size: 8px; letter-spacing: .09em; }
+
+.opsHomeView { display: grid; grid-template-rows: auto auto 1fr; overflow: hidden; padding: 52px 18px 20px; color: var(--ink); background: #e8e9de; background-image: linear-gradient(rgba(17,18,15,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(17,18,15,.05) 1px, transparent 1px); background-size: 22px 22px; animation: screenIn 460ms cubic-bezier(.16,1,.3,1) both; }
+.opsStatusBar { color: rgba(17,18,15,.58); }
+.opsHomeTitle { margin-top: 52px; text-align: center; }
+.opsHomeTitle span { color: var(--lime-deep); font-family: "Courier New", monospace; font-size: 8px; font-weight: 800; letter-spacing: .08em; }
+.opsHomeTitle strong { display: block; margin-top: 8px; font-size: 30px; font-weight: 400; letter-spacing: -.06em; }
+.opsAppGrid { align-self: center; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; width: 100%; margin-top: 0; }
+.opsAppCard { min-width: 0; position: relative; display: grid; justify-items: center; gap: 13px; padding: 18px 7px 16px; border: 1px solid rgba(17,18,15,.18); border-radius: 22px; color: var(--ink); background: rgba(244,240,232,.48); text-align: center; box-shadow: 0 8px 18px rgba(17,18,15,.08); transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease, background 220ms ease; }
+.opsAppCard::before { content: ""; position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(120deg, transparent 20%, rgba(255,255,255,.58) 47%, transparent 69%); opacity: 0; transform: translateX(-75%); transition: opacity 220ms ease, transform 520ms cubic-bezier(.16,1,.3,1); pointer-events: none; }
+.opsAppCard:hover, .opsAppCard:focus-visible { border-color: var(--app-accent); outline: none; transform: translateY(-6px); background: rgba(244,240,232,.76); box-shadow: 0 16px 28px rgba(17,18,15,.14); }
+.opsAppCard:hover::before, .opsAppCard:focus-visible::before { opacity: .7; transform: translateX(75%); }
+.opsAppCard:active { transform: translateY(-1px) scale(.98); }
+.opsAppCardIcon { position: relative; z-index: 1; display: grid; place-items: center; animation: iconFloat 5.5s ease-in-out infinite; }
+.opsAppCard:nth-child(2) .opsAppCardIcon { animation-delay: -1.3s; }
+.opsAppCard:nth-child(3) .opsAppCardIcon { animation-delay: -2.6s; }
+.opsAppCardIcon .opsAppIcon { width: 60px; height: 60px; border-radius: 17px; box-shadow: inset 0 1px 0 rgba(255,255,255,.62), 0 9px 16px rgba(17,18,15,.15); }
+.opsAppCardIcon .opsAppIcon img { width: 42px; height: 42px; }
+.opsAppIcon { width: 32px; height: 32px; display: grid; place-items: center; overflow: hidden; border: 1px solid rgba(17,18,15,.2); border-radius: 9px; background: var(--app-accent); box-shadow: inset 0 1px 0 rgba(255,255,255,.5); }
+.opsAppIcon img { width: 22px; height: 22px; object-fit: contain; }
+.opsAppCard > strong { position: relative; z-index: 1; overflow: hidden; font-size: 12px; font-weight: 500; line-height: 1; text-overflow: ellipsis; white-space: nowrap; }
+.opsHomeFooter { position: absolute; right: 18px; bottom: 18px; left: 18px; color: rgba(17,18,15,.44); font-size: 7px; }
+
+.opsAppHomeView { padding: 52px 17px 20px; color: var(--ink); background: #eef0e5; animation: screenIn 420ms cubic-bezier(.16,1,.3,1) both; }
+.opsAppHeader { min-height: 34px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 7px; border-bottom: 1px solid var(--line); }
+.opsAppHeader button { min-height: 42px; justify-self: start; padding: 5px 0; border: 0; color: var(--ink); background: transparent; font-family: "Courier New", monospace; font-size: 18px; font-weight: 700; }
+.opsAppHeader button:hover, .opsAppHeader button:focus-visible { color: var(--lime-deep); outline: none; }
+.opsAppHeader button span { font-size: 11px; font-weight: 800; letter-spacing: .04em; }
+.opsAppHeader > span { display: inline-flex; align-items: center; gap: 5px; justify-self: center; font-size: 11px; font-weight: 700; white-space: nowrap; }
+.opsAppHeader > span .opsAppIcon { width: 21px; height: 21px; border-radius: 6px; }
+.opsAppHeader > span .opsAppIcon img { width: 14px; height: 14px; }
+.opsAppHeader > i { justify-self: end; overflow: hidden; color: var(--muted); font-family: "Courier New", monospace; font-size: 7px; font-style: normal; text-overflow: ellipsis; white-space: nowrap; }
+.opsSingleProfile { width: 100%; display: grid; gap: 14px; margin-top: 28px; padding: 0; border: 0; color: var(--ink); background: transparent; text-align: left; }
+.opsSingleProfile:hover .opsProfileCaption, .opsSingleProfile:focus-visible .opsProfileCaption { border-color: var(--lime-deep); transform: translateY(-3px); }
+.opsSingleProfile:focus-visible { outline: none; }
+.opsSingleProfile > .opsImage { height: 360px; overflow: hidden; border: 1px solid var(--line); border-radius: 14px; background: #d4d7cb; box-shadow: 5px 6px 0 rgba(17,18,15,.1); }
+.opsSingleProfile > .opsImage img { width: 100%; height: 100%; display: block; object-fit: contain; object-position: center; }
+.opsProfileCaption { display: grid; gap: 7px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px; background: rgba(244,240,232,.8); transition: transform 200ms ease, border-color 200ms ease; }
+.opsProfileCaption strong { font-size: 20px; font-weight: 400; }
+.opsProfileCaption i { color: var(--ink); font-family: "Courier New", monospace; font-size: 8px; font-style: normal; font-weight: 800; letter-spacing: .06em; }
+.opsAccountGrid { display: grid; gap: 10px; margin-top: 20px; }
+.opsAccountCard { display: grid; grid-template-columns: 1fr; gap: 5px; align-items: start; padding: 7px; border: 1px solid var(--line); border-radius: 12px; color: var(--ink); background: rgba(244,240,232,.78); text-align: left; box-shadow: 3px 4px 0 rgba(17,18,15,.06); transition: transform 200ms ease, border-color 200ms ease; }
+.opsAccountCard:hover, .opsAccountCard:focus-visible { border-color: var(--lime-deep); outline: none; transform: translateY(-3px); }
+.opsAccountCard:active { transform: translateY(-1px) scale(.985); }
+.opsAccountCard > .opsImage { height: auto; overflow: hidden; border-radius: 8px; }
+.opsAccountCard > .opsImage img { width: 100%; height: auto; display: block; object-fit: contain; object-position: center; }
+.opsAccountCard strong { padding: 1px 3px 3px; overflow: hidden; font-size: 11px; font-weight: 500; text-overflow: ellipsis; white-space: nowrap; }
+.opsChannelGrid { display: grid; gap: 12px; margin-top: 24px; }
+.opsChannelCard { display: grid; gap: 7px; padding: 8px; border: 1px solid var(--line); border-radius: 13px; color: var(--ink); background: rgba(244,240,232,.78); text-align: left; box-shadow: 3px 4px 0 rgba(17,18,15,.06); transition: transform 200ms ease, border-color 200ms ease, box-shadow 200ms ease; }
+.opsChannelCard:hover, .opsChannelCard:focus-visible { border-color: var(--lime-deep); outline: none; transform: translateY(-3px); box-shadow: 5px 7px 0 rgba(17,18,15,.1); }
+.opsChannelCard > .opsImage { height: 250px; overflow: hidden; border-radius: 8px; background: #d7d8ce; }
+.opsChannelCard > .opsImage img { width: 100%; height: 100%; display: block; object-fit: contain; }
+.opsChannelCard strong { padding-inline: 3px; font-size: 18px; font-weight: 500; }
+.opsChannelCard i { padding-inline: 3px; color: var(--lime-deep); font-family: "Courier New", monospace; font-size: 9px; font-style: normal; font-weight: 700; }
+.opsChannelCard.isTextOnly { min-height: 92px; align-content: center; padding: 14px 16px; background: linear-gradient(125deg, rgba(198,238,77,.2), rgba(244,240,232,.8) 58%); }
+.opsChannelMark { color: var(--lime-deep); font-family: "Courier New", monospace; font-size: 8px; font-weight: 800; letter-spacing: .08em; }
+
+.opsFeedView { padding: 52px 14px 17px; color: var(--ink); background: #e7e8dd; animation: screenIn 420ms cubic-bezier(.16,1,.3,1) both; }
+.opsFeedHeader { padding-inline: 3px; }
+.opsFeedHeader > span { font-size: 15px; font-weight: 500; }
+.opsFeedScroller { height: calc(100% - 50px); overflow-y: auto; overflow-x: hidden; padding: 18px 3px 28px; scrollbar-width: thin; scrollbar-color: var(--lime-deep) transparent; }
+.opsFeedScroller::-webkit-scrollbar { width: 4px; }
+.opsFeedScroller::-webkit-scrollbar-thumb { background: var(--lime-deep); }
+.opsFeedIntro { padding: 0 4px 18px; }
+.opsFeedIntro > span { color: var(--lime-deep); font-family: "Courier New", monospace; font-size: 8px; font-weight: 800; letter-spacing: .06em; }
+.opsFeedIntro h3 { margin: 9px 0 0; font-size: 26px; font-weight: 400; letter-spacing: -.04em; }
+.opsFeedIntro p { margin: 6px 0 0; color: var(--muted); font-size: 10px; }
+.opsFeedItem { margin: 0 0 14px; border: 0; border-radius: 0; background: transparent; overflow: hidden; }
+.opsFeedItem > .opsImage { display: block; overflow: hidden; background: #d7d8ce; }
+.opsFeedItem > .opsImage img { width: 100%; height: auto; display: block; object-fit: contain; object-position: top center; }
+.opsArticle { margin: 0 0 16px; padding: 0; border: 0; border-radius: 0; background: transparent; box-shadow: none; }
+.opsArticleMedia { position: relative; }
+.opsArticleScroller { display: flex; align-items: flex-start; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; border: 0; border-radius: 7px; background: #d7d8ce; }
+.opsArticleScroller::-webkit-scrollbar { display: none; }
+.opsArticleScroller > .opsImage { min-width: 100%; align-self: flex-start; height: max-content; scroll-snap-align: start; }
+.opsArticleScroller > .opsImage img { width: 100%; height: auto; display: block; }
+.opsArticleSingle { width: 100%; overflow: visible; border: 0; border-radius: 7px; background: transparent; }
+.opsArticleSingle > .opsImage { width: 100%; height: auto; display: block; }
+.opsArticleSingle > .opsImage img { width: 100%; height: auto; display: block; object-fit: contain; object-position: top center; }
+.opsArticleControls { display: grid; grid-template-columns: 30px 1fr 30px; align-items: center; gap: 8px; padding-top: 8px; text-align: center; }
+.opsArticleControls button { width: 30px; height: 28px; padding: 0; border: 1px solid var(--line); border-radius: 7px; color: var(--ink); background: var(--paper); font-size: 15px; }
+.opsArticleControls button:hover, .opsArticleControls button:focus-visible { color: var(--ink); background: var(--lime); outline: none; }
+.opsArticleControls button:disabled { opacity: .3; cursor: not-allowed; }
+.opsArticleControls span { color: var(--muted); font-family: "Courier New", monospace; font-size: 8px; }
+.opsArticleControlsTop { padding-top: 0; padding-bottom: 8px; }
+.opsArticleControlsBottom { padding-top: 8px; }
+.opsArticleDots { display: flex; align-items: center; justify-content: center; gap: 4px; }
+.opsArticleDots i { width: 4px; height: 4px; display: block; border-radius: 50%; background: rgba(17,18,15,.2); }
+.opsArticleDots i.isActive { width: 13px; border-radius: 4px; background: var(--lime-deep); }
+
+.opsImage { display: block; }
+.opsImage img { max-width: 100%; }
+.opsImageFallback { min-height: 110px; display: grid; place-items: center; align-content: center; gap: 6px; padding: 18px; color: var(--muted); background: #d8d9cf; text-align: center; }
+.opsImageFallback strong { font-size: 11px; font-weight: 500; }
+.opsImageFallback small { font-family: "Courier New", monospace; font-size: 8px; }
+
+.operationsFooter { max-width: 1280px; display: flex; align-items: center; justify-content: space-between; gap: 18px; margin: 0 auto; padding-top: 18px; border-top: 1px solid var(--line); color: var(--muted); font-family: "Courier New", monospace; font-size: 9px; letter-spacing: .06em; }
+.operationsFooter button { padding: 0; border: 0; color: var(--ink); background: transparent; font-family: inherit; font-size: inherit; letter-spacing: inherit; }
+.operationsFooter button:hover, .operationsFooter button:focus-visible { color: var(--lime-deep); outline: none; }
+
+@keyframes phoneEnter { from { opacity: 0; transform: translateY(44px) rotate(2deg); } to { opacity: 1; transform: translateY(16px) rotate(0); } }
+@keyframes screenIn { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes unlockCue { 0%, 100% { transform: translateY(4px); opacity: .62; } 50% { transform: translateY(-4px); opacity: 1; } }
+@keyframes lockOrbit { 0% { transform: rotate(-16deg) translateY(0); } 100% { transform: rotate(14deg) translateY(-8px); } }
+@keyframes lockGlow { from { transform: translateX(-12%); opacity: .3; } to { transform: translateX(12%); opacity: .8; } }
+@keyframes lockPortraitDrift { from { transform: scale(1.03) translate3d(-1%, 0, 0); } to { transform: scale(1.08) translate3d(1%, -1%, 0); } }
+@keyframes iconFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+
+@media (max-width: 1020px) {
+  .operationsStage { grid-template-columns: minmax(110px, 1fr) minmax(340px, 430px) minmax(110px, 1fr); gap: 18px; }
+  .phoneFrame { width: min(430px, 44vw); }
+  .operationsStageMeta strong { font-size: 30px; }
+}
+
+@media (max-width: 760px) {
+  .operationsPortfolio { padding: 48px 0 38px; }
+  .operationsHeader { padding-inline: 18px; }
+  .operationsHeader h3 { font-size: 43px; }
+  .operationsStage { min-height: 760px; display: grid; grid-template-columns: 1fr; gap: 0; padding-top: 12px; }
+  .operationsStage::before { width: 440px; height: 440px; }
+  .operationsStage::after { width: 300px; height: 300px; }
+  .operationsStageMeta { display: none; }
+  .phoneFrame { width: min(86vw, 400px); min-height: 680px; }
+  .operationsFooter { margin-inline: 18px; font-size: 8px; }
+  .operationsFooter button { font-size: 8px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .phoneFrame, .opsLockScreen, .opsHomeView, .opsAppHomeView, .opsFeedView, .opsSwipeArrow, .opsLockArtwork img, .opsLockArtwork::after, .opsLockArtwork i, .opsAppCardIcon { animation: none; transition: none; }
+  .opsAppCard, .opsSingleProfile, .opsAccountCard { transition: none; }
+}

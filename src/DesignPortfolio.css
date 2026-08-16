@@ -1,0 +1,512 @@
+.designPortfolio {
+  min-height: 820px;
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid var(--line);
+  background: var(--paper);
+}
+
+.designDeckView {
+  min-height: 820px;
+  position: relative;
+  padding: 48px 34px 0;
+  background-image:
+    linear-gradient(rgba(17,18,15,.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(17,18,15,.055) 1px, transparent 1px);
+  background-size: 42px 42px;
+}
+
+.designDeckHeader {
+  position: relative;
+  z-index: 30;
+  text-align: center;
+}
+
+.designDeckHeader > span {
+  color: var(--lime-deep);
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.designDeckHeader h3 {
+  margin: 11px 0 7px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 64px;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.designDeckHeader p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.designDeckStage {
+  height: 650px;
+  position: relative;
+  cursor: none;
+  perspective: 1500px;
+}
+
+.designCursor {
+  width: 62px;
+  height: 62px;
+  position: absolute;
+  z-index: 100;
+  left: -31px;
+  top: -31px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--ink);
+  border-radius: 50%;
+  color: var(--ink);
+  background: rgba(198,238,77,.92);
+  backdrop-filter: blur(8px);
+  font-size: 11px;
+  font-weight: 800;
+  opacity: 0;
+  pointer-events: none;
+  transition: width 160ms ease, height 160ms ease, opacity 160ms ease;
+}
+
+.designCursor.isVisible { opacity: 1; }
+
+.designCardDeck {
+  width: 100%;
+  height: 510px;
+  position: absolute;
+  left: 0;
+  top: 42px;
+  transform-style: preserve-3d;
+}
+
+.designCardDeck::after {
+  content: "";
+  width: 42%;
+  height: 132%;
+  position: absolute;
+  z-index: 65;
+  left: -52%;
+  top: -18%;
+  background: linear-gradient(90deg, transparent, rgba(239,219,115,.1) 43%, rgba(249,237,173,.28) 50%, rgba(210,229,91,.08) 58%, transparent);
+  filter: blur(16px);
+  mix-blend-mode: screen;
+  pointer-events: none;
+  transform: rotate(12deg);
+  animation: deckFoilLight 14s cubic-bezier(.45,0,.55,1) infinite;
+}
+
+.designCategorySlot {
+  --slot-active-x: var(--slot-x);
+  width: 250px;
+  height: 390px;
+  position: absolute;
+  z-index: calc(20 + var(--card-order));
+  left: 50%;
+  top: 0;
+  transform-style: preserve-3d;
+  transform: translate3d(calc(-50% + var(--slot-active-x)), var(--slot-y), 0) rotateZ(var(--slot-rotate)) scale(var(--slot-scale));
+}
+
+.designCategorySlot:hover,
+.designCategorySlot:focus-within {
+  z-index: 70;
+}
+
+.designCategoryCard {
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
+  --glow-x: 50%;
+  --glow-y: 50%;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  color: inherit;
+  background: transparent;
+  text-align: left;
+  perspective: 1200px;
+  transform-style: preserve-3d;
+  transform: rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
+  transition: transform 260ms ease, filter 260ms ease;
+  will-change: transform;
+}
+
+.designCategoryCard::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  border-radius: 6px;
+  background: radial-gradient(circle at var(--glow-x) var(--glow-y), rgba(255,255,255,.22), transparent 32%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 180ms ease;
+}
+
+.designCardGlare {
+  position: absolute;
+  z-index: 7;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.designCategoryCard:hover .designCardGlare::before,
+.designCategoryCard:focus-visible .designCardGlare::before {
+  background-position: 100% 100%;
+}
+
+.designCategoryCard:hover,
+.designCategoryCard:focus-visible {
+  outline: none;
+  transform: translate3d(0, -42px, 90px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) scale(1.035);
+}
+
+.designCategoryCard:hover::after,
+.designCategoryCard:focus-visible::after { opacity: 1; }
+.designCategoryCard.isDrawing { animation: drawDesignCard 560ms cubic-bezier(.2,.8,.2,1) forwards; }
+.designCategoryCard.isDrawing .designCardInner { transform: rotateY(180deg); }
+
+.designCardInner {
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 560ms cubic-bezier(.2,.72,.2,1);
+}
+
+.designCategoryCard:hover .designCardInner,
+.designCategoryCard:focus-visible .designCardInner {
+  transform: rotateY(180deg);
+}
+
+.designCardFace {
+  position: absolute;
+  inset: 0;
+  display: block;
+  overflow: hidden;
+  border: 1px solid rgba(17,18,15,.82);
+  border-radius: 6px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  box-shadow: 15px 19px 0 rgba(17,18,15,.14);
+}
+
+.designCardBack {
+  color: #ead66f;
+  background-color: #10241a;
+  background-image:
+    radial-gradient(circle at 50% 48%, transparent 0 92px, rgba(234,214,111,.18) 93px 94px, transparent 95px),
+    radial-gradient(circle at 22% 21%, rgba(247,231,148,.4) 0 1px, transparent 2px),
+    radial-gradient(circle at 81% 31%, rgba(247,231,148,.3) 0 1px, transparent 2px),
+    radial-gradient(circle at 28% 76%, rgba(247,231,148,.28) 0 1px, transparent 2px),
+    linear-gradient(138deg, rgba(248,226,124,.08), transparent 38%, rgba(8,43,29,.28) 72%),
+    repeating-linear-gradient(118deg, rgba(246,237,178,.026) 0 1px, transparent 1px 8px);
+  box-shadow:
+    inset 0 0 0 1px rgba(236,247,190,.14),
+    inset 0 0 46px rgba(3,20,13,.72),
+    15px 19px 0 rgba(17,18,15,.14);
+}
+
+.designCardBack::before,
+.designCardBack::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+
+.designCardBack::before {
+  z-index: 3;
+  inset: 12px;
+  border: 1px solid rgba(234,214,111,.68);
+  border-radius: 3px;
+  box-shadow:
+    inset 0 0 0 10px #10241a,
+    inset 0 0 0 11px rgba(244,248,220,.18),
+    inset 0 0 0 18px #10241a,
+    inset 0 0 0 19px rgba(234,214,111,.25);
+}
+
+.designCardBack::after {
+  z-index: 1;
+  inset: 31px;
+  border: 1px solid rgba(246,234,166,.13);
+  background: linear-gradient(135deg, rgba(247,230,141,.045), transparent 52%, rgba(225,207,94,.055));
+}
+
+.designCardBackIndex {
+  position: absolute;
+  z-index: 2;
+  top: 28px;
+  left: 30px;
+  color: var(--paper);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.designCardSeal {
+  width: 142px;
+  height: 142px;
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  top: 48%;
+  border: 1px solid rgba(234,214,111,.4);
+  border-radius: 50%;
+  background: radial-gradient(circle, transparent 0 47px, rgba(234,214,111,.19) 48px 49px, transparent 50px);
+  box-shadow:
+    0 0 0 9px rgba(210,238,107,.035),
+    0 0 0 10px rgba(234,214,111,.14);
+  transform: translate(-50%, -52%);
+}
+
+.designCardSeal::before,
+.designCardSeal::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+
+.designCardSeal::before {
+  inset: -14px;
+  border-radius: 50%;
+  background: repeating-conic-gradient(from 0deg, rgba(234,214,111,.38) 0deg .65deg, transparent .65deg 30deg);
+  -webkit-mask: radial-gradient(circle, transparent 0 69px, #000 70px 71px, transparent 72px);
+  mask: radial-gradient(circle, transparent 0 69px, #000 70px 71px, transparent 72px);
+}
+
+.designCardSeal::after {
+  width: 4px;
+  height: 4px;
+  left: 22px;
+  top: 29px;
+  border-radius: 50%;
+  background: #f5e392;
+  box-shadow: 89px 17px 0 rgba(245,227,146,.8), 18px 85px 0 rgba(245,227,146,.62), 93px 91px 0 rgba(245,227,146,.48);
+}
+
+.designCardMoon {
+  width: 70px;
+  height: 70px;
+  position: absolute;
+  left: 37px;
+  top: 38px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #fff1aa, #d2b345 72%);
+  box-shadow: inset 2px 2px 7px rgba(255,255,255,.42), 0 0 18px rgba(236,216,105,.16);
+}
+
+.designCardMoon::after {
+  content: "";
+  width: 64px;
+  height: 64px;
+  position: absolute;
+  left: 20px;
+  top: -8px;
+  border-radius: 50%;
+  background: #10241a;
+}
+
+.designCardStar {
+  width: 16px;
+  height: 16px;
+  position: absolute;
+  background: linear-gradient(145deg, #fff1aa, #c8a93f);
+  clip-path: polygon(50% 0, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0 50%, 40% 40%);
+}
+
+.designCardStarOne { right: 24px; top: 33px; }
+.designCardStarTwo { width: 10px; height: 10px; right: 35px; top: 67px; opacity: .76; }
+.designCardStarThree { width: 7px; height: 7px; left: 29px; bottom: 27px; opacity: .62; }
+
+.designCardArchive {
+  position: absolute;
+  z-index: 2;
+  right: 29px;
+  bottom: 28px;
+  color: rgba(244,240,232,.58);
+  font-size: 9px;
+  font-style: normal;
+  line-height: 1.55;
+  text-align: right;
+  text-transform: uppercase;
+}
+
+.designCardFront {
+  color: var(--ink);
+  background:
+    linear-gradient(150deg, rgba(198,238,77,.82), transparent 56%),
+    var(--paper);
+  transform: rotateY(180deg);
+}
+
+.designCardFront::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 13px;
+  background: var(--ink);
+}
+
+.designCardIndex {
+  position: absolute;
+  top: 34px;
+  left: 28px;
+  color: var(--lime-deep);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.designCardCopy {
+  position: absolute;
+  left: 28px;
+  right: 22px;
+  top: 50%;
+  display: block;
+  transform: translateY(-50%);
+}
+
+.designCardCopy small,
+.designCardCopy strong,
+.designCardCopy em {
+  display: block;
+}
+
+.designCardCopy small { color: var(--lime-deep); font-size: 9px; text-transform: uppercase; }
+.designCardCopy strong { margin-top: 12px; font-size: 33px; line-height: 1.05; }
+.designCardCopy em { margin-top: 18px; color: rgba(17,18,15,.6); font-size: 12px; font-style: normal; }
+.designCardOpen { position: absolute; right: 25px; bottom: 26px; font-size: 10px; font-weight: 800; }
+
+.designGalleryView {
+  min-height: 760px;
+  position: relative;
+  padding: 30px 0 22px;
+  color: var(--paper);
+  background: var(--ink);
+}
+
+.designGalleryHeader {
+  min-height: 90px;
+  display: grid;
+  grid-template-columns: 52px minmax(0,1fr) auto;
+  align-items: center;
+  gap: 18px;
+  padding: 0 34px 20px;
+  border-bottom: 1px solid rgba(244,240,232,.16);
+}
+
+.designGalleryHeader button {
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: 1px solid rgba(244,240,232,.32);
+  border-radius: 4px;
+  color: var(--paper);
+  background: transparent;
+  font-size: 23px;
+}
+
+.designGalleryHeader button:hover { color: var(--ink); background: var(--lime); border-color: var(--lime); }
+.designGalleryHeader span { color: var(--lime); font-size: 10px; text-transform: uppercase; }
+.designGalleryHeader h3 { margin: 4px 0 0; font-size: 34px; line-height: 1; }
+.designGalleryHeader > p { margin: 0; color: rgba(244,240,232,.48); font-size: 12px; }
+
+.orbitGalleryHeader { grid-template-columns: 52px minmax(0, 1fr) auto; }
+.orbitGalleryHeading { text-align: center; }
+.orbitGalleryHeading h3 { font-size: clamp(34px, 4vw, 58px); letter-spacing: -.04em; }
+
+.orbitStage {
+  --orbit-x: 50%;
+  --orbit-y: 45%;
+  height: 530px;
+  position: relative;
+  overflow: hidden;
+  outline: none;
+  cursor: grab;
+  touch-action: pan-y;
+  perspective: 1500px;
+  isolation: isolate;
+  background: radial-gradient(circle at var(--orbit-x) var(--orbit-y), rgba(198,238,77,.15), transparent 24%), linear-gradient(180deg, rgba(255,255,255,.015), transparent 45%, rgba(0,0,0,.1));
+}
+.orbitStage:active { cursor: grabbing; }
+.orbitStage:focus-visible { box-shadow: inset 0 0 0 2px var(--lime); }
+.orbitAmbient { position: absolute; inset: -12%; z-index: 0; pointer-events: none; background: radial-gradient(circle at var(--orbit-x) var(--orbit-y), rgba(234,214,111,.22), transparent 24%); filter: blur(42px); opacity: .7; transition: background-position 220ms ease; }
+.orbitFrame { position: absolute; z-index: 1; left: 50%; top: 50%; display: grid; gap: 10px; margin: 0; width: max-content; transform-style: preserve-3d; transform-origin: center center; opacity: 0; pointer-events: none; transition: transform 560ms cubic-bezier(.2,.8,.2,1), opacity 420ms ease, filter 420ms ease; }
+.orbitFrame.isCurrent { z-index: 5; opacity: 1; transform: translate(-50%, -50%) translateZ(110px) scale(1); pointer-events: auto; filter: brightness(1.03); }
+.orbitFrame.isPrevious { z-index: 4; opacity: .66; transform: translate(-124%, -50%) rotateY(18deg) translateZ(10px) scale(.57); }
+.orbitFrame.isNext { z-index: 4; opacity: .66; transform: translate(24%, -50%) rotateY(-18deg) translateZ(10px) scale(.57); }
+.orbitFrame.isFarPrevious { z-index: 2; opacity: .25; transform: translate(-182%, -50%) rotateY(28deg) translateZ(-80px) scale(.39); }
+.orbitFrame.isFarNext { z-index: 2; opacity: .25; transform: translate(82%, -50%) rotateY(-28deg) translateZ(-80px) scale(.39); }
+.orbitImageWrap { display: grid; place-items: center; overflow: visible; }
+.orbitImageWrap img { display: block; width: auto; height: auto; max-width: min(74vw, 1120px); max-height: 56vh; object-fit: contain; object-position: center; border-radius: 3px; box-shadow: 0 24px 46px rgba(0,0,0,.34), 0 0 0 1px rgba(244,240,232,.14); }
+.orbitFrame.isCurrent .orbitImageWrap img { box-shadow: 0 28px 58px rgba(0,0,0,.4), 0 0 0 1px rgba(244,240,232,.2); }
+.orbitFrame figcaption { display: flex; justify-content: space-between; gap: 28px; color: rgba(244,240,232,.52); font-size: 10px; text-transform: uppercase; }
+.orbitFrame figcaption span:first-child { color: var(--lime); }
+.orbitControls { height: 68px; display: flex; align-items: center; justify-content: center; gap: 28px; }
+.orbitControls button { width: 52px; height: 40px; padding: 0; border: 1px solid rgba(244,240,232,.26); border-radius: 999px; color: rgba(244,240,232,.84); background: rgba(17,18,15,.18); font-size: 22px; line-height: 1; transition: color 180ms ease, border-color 180ms ease, background 180ms ease, transform 180ms ease; }
+.orbitControls button:hover { color: var(--ink); border-color: var(--lime); background: var(--lime); transform: translateY(-2px); }
+.orbitControls span { min-width: 64px; color: rgba(244,240,232,.58); font-size: 11px; letter-spacing: .1em; text-align: center; }
+
+@keyframes drawDesignCard {
+  0% { opacity: 1; }
+  60% { transform: translate3d(0, -150px, 260px) rotateX(0deg) rotateY(0deg) scale(1.1); opacity: 1; }
+  100% { transform: translate3d(0, -220px, 360px) rotateX(0deg) rotateY(0deg) scale(1.18); opacity: 0; }
+}
+
+@keyframes deckFoilLight {
+  0%, 16% { transform: translateX(0) rotate(12deg); opacity: 0; }
+  30% { opacity: .74; }
+  54% { transform: translateX(390%) rotate(12deg); opacity: .52; }
+  68%, 100% { transform: translateX(390%) rotate(12deg); opacity: 0; }
+}
+
+@media (max-width: 1280px) {
+  .designCategorySlot { --slot-active-x: var(--slot-x-medium); width: 220px; height: 350px; }
+  .designCardCopy strong { font-size: 22px; }
+  .orbitImageWrap img { max-width: 70vw; max-height: 54vh; }
+}
+
+@media (max-width: 760px) {
+  .designPortfolio, .designDeckView { min-height: 610px; }
+  .designDeckView { padding: 42px 0 22px; }
+  .designDeckHeader { padding: 0 18px; text-align: left; }
+  .designDeckHeader h3 { font-size: 44px; }
+  .designDeckStage { height: 440px; margin-top: 28px; overflow-x: auto; cursor: auto; perspective: none; scrollbar-width: none; }
+  .designCursor { display: none; }
+  .designCardDeck { width: max-content; height: auto; position: static; display: flex; gap: 12px; padding: 14px 18px 26px; }
+  .designCategorySlot { width: 230px; height: 360px; position: relative; left: auto; top: auto; flex: 0 0 auto; z-index: 1; animation: none; transform: none; }
+  .designCategoryCard { transform: none; }
+  .designCategoryCard .designCardInner { transform: rotateY(180deg); }
+  .designCategoryCard:hover, .designCategoryCard:focus-visible { transform: translateY(-8px); }
+  .designCategoryCard.isDrawing { animation: none; opacity: .45; transform: scale(.96); }
+  .designGalleryView { min-height: 690px; padding-top: 20px; }
+  .designGalleryHeader { grid-template-columns: 44px 1fr; padding: 0 18px 16px; }
+  .designGalleryHeader button { width: 42px; height: 42px; }
+  .designGalleryHeader > p { display: none; }
+  .designGalleryHeader h3 { font-size: 28px; }
+  .orbitStage { height: 520px; }
+  .orbitImageWrap img { max-width: 76vw; max-height: 50vh; }
+  .orbitFrame.isPrevious { transform: translate(-104%, -50%) rotateY(14deg) translateZ(0) scale(.42); opacity: .4; }
+  .orbitFrame.isNext { transform: translate(4%, -50%) rotateY(-14deg) translateZ(0) scale(.42); opacity: .4; }
+  .orbitFrame.isFarPrevious, .orbitFrame.isFarNext { opacity: 0; }
+  .orbitControls { height: 62px; gap: 18px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .designCursor { display: none; }
+  .designDeckStage { cursor: auto; }
+  .designCardDeck::after { display: none; }
+  .designCategorySlot { transform: translate3d(calc(-50% + var(--slot-active-x)), var(--slot-y), 0) rotateZ(var(--slot-rotate)) scale(var(--slot-scale)); }
+  .designCategoryCard, .designCardInner, .orbitFrame, .orbitControls button { transition: none; animation: none; }
+  .designCategoryCard.isDrawing { opacity: .5; }
+}

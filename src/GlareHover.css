@@ -1,0 +1,36 @@
+.glareHover {
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: relative;
+  overflow: hidden;
+  border-radius: inherit;
+  transform-style: preserve-3d;
+}
+
+.glareHover::before {
+  content: "";
+  position: absolute;
+  z-index: 7;
+  inset: 0;
+  background: linear-gradient(
+    var(--glare-angle),
+    transparent 54%,
+    var(--glare-color) 66%,
+    transparent 77%
+  );
+  background-position: -100% -100%;
+  background-repeat: no-repeat;
+  background-size: var(--glare-size) var(--glare-size);
+  pointer-events: none;
+  transition: background-position var(--glare-duration) cubic-bezier(.2,.72,.2,1);
+}
+
+.glareHover:hover::before,
+.glareHover:focus-within::before {
+  background-position: 100% 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glareHover::before { display: none; }
+}

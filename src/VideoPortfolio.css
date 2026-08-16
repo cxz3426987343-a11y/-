@@ -1,0 +1,219 @@
+.videoPortfolio {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: 56px 30px 44px;
+  border-top: 1px solid var(--line);
+  background:
+    linear-gradient(rgba(17,18,15,.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(17,18,15,.045) 1px, transparent 1px),
+    var(--paper);
+  background-size: 42px 42px, 42px 42px, auto;
+}
+
+.videoPortfolio::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 18% -12% 28%;
+  background: linear-gradient(100deg, transparent 15%, rgba(151,205,75,.13) 38%, rgba(238,137,112,.1) 54%, rgba(113,177,190,.12) 69%, transparent 86%);
+  filter: blur(34px);
+  transform: translateX(-8%);
+}
+
+.videoPortfolioHeader { text-align: center; }
+.videoPortfolioHeader > span { color: var(--lime-deep); font-size: 12px; font-weight: 800; text-transform: uppercase; }
+.videoPortfolioHeader h3 { margin: 10px 0 0; font-family: Georgia, "Times New Roman", serif; font-size: 62px; font-style: italic; font-weight: 400; line-height: 1; }
+
+.videoShowcase { min-height: 570px; display: grid; place-items: center; padding: 32px 0 20px; }
+.retroTelevision { width: min(980px, 84vw); opacity: 0; transform: translateY(24px); }
+.videoPortfolio.isVisible .retroTelevision { animation: tvEnter 680ms cubic-bezier(.16,1,.3,1) forwards; }
+
+.tvCabinet {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 116px;
+  gap: 16px;
+  padding: 24px;
+  border: 1px solid rgba(17,18,15,.56);
+  border-radius: 18px 18px 12px 12px;
+  background: #ddd9c9;
+  box-shadow: inset 0 2px 0 rgba(255,255,255,.7), inset 0 -8px 18px rgba(86,82,64,.16), 22px 28px 0 rgba(17,18,15,.1);
+}
+
+.tvScreenBezel {
+  min-width: 0;
+  padding: 14px;
+  border: 1px solid rgba(17,18,15,.72);
+  border-radius: 38px 38px 30px 30px / 25px 25px 36px 36px;
+  background: #19221a;
+  box-shadow: inset 0 0 0 4px rgba(255,255,255,.05), inset 0 0 26px rgba(0,0,0,.72);
+}
+
+.tvScreen {
+  aspect-ratio: 16 / 9;
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  border-radius: 28px 28px 24px 24px / 20px 20px 30px 30px;
+  color: #f4f0e8;
+  background: #0d1710;
+  box-shadow: inset 0 0 54px rgba(0,0,0,.8);
+}
+
+.tvScreen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  background: linear-gradient(112deg, transparent 18%, rgba(235,246,205,.16) 43%, transparent 57%);
+  transform: translateX(-130%);
+  pointer-events: none;
+}
+
+.tvScreen.hasSelection::after { animation: screenWipe 520ms cubic-bezier(.2,.7,.2,1); }
+.tvScreen video { width: 100%; height: 100%; display: block; object-fit: contain; background: #0d1710; }
+.tvIdleTitle { position: relative; z-index: 2; display: grid; place-items: center; gap: 26px; text-align: center; }
+.tvIdleTitle span { display: block; color: #f3eddc; font-family: "Courier New", "Lucida Console", monospace; font-size: clamp(48px, 7vw, 94px); font-weight: 900; line-height: .86; letter-spacing: .02em; text-transform: lowercase; text-shadow: 4px 0 0 rgba(198,238,77,.2), 0 0 18px rgba(198,238,77,.16); image-rendering: pixelated; }
+.tvIdleStart { min-width: 174px; padding: 12px 25px; border: 2px dashed rgba(198,238,77,.82); border-radius: 2px; color: var(--lime); background: rgba(13,23,16,.38); font-family: "Courier New", monospace; font-size: 18px; font-weight: 800; letter-spacing: .28em; transition: color 180ms ease, background 180ms ease, transform 180ms ease, box-shadow 180ms ease; }
+.tvIdleStart:hover, .tvIdleStart:focus-visible { color: var(--ink); background: var(--lime); outline: none; transform: translateY(-2px); box-shadow: 0 0 0 5px rgba(198,238,77,.12); }
+.videoPortfolio.isVisible .tvIdleTitle { animation: idleBoot 720ms 240ms both; }
+
+.tvPlayButton {
+  width: 78px;
+  height: 78px;
+  position: absolute;
+  z-index: 6;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid rgba(244,240,232,.66);
+  border-radius: 50%;
+  color: var(--ink);
+  background: rgba(198,238,77,.94);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 14px 34px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.64);
+  transition: transform 220ms cubic-bezier(.16,1,.3,1), opacity 180ms ease;
+}
+.tvPlayButton span { margin-left: 4px; font-size: 25px; }
+.tvPlayButton:hover:not(:disabled), .tvPlayButton:focus-visible { transform: scale(1.08); outline: 2px solid var(--paper); outline-offset: 4px; }
+.tvPlayButton:active:not(:disabled) { transform: scale(.96); }
+.tvPlayButton:disabled { opacity: .32; cursor: wait; }
+.tvError { position: absolute; z-index: 6; padding: 12px 16px; border: 1px solid rgba(244,240,232,.36); color: var(--paper); background: rgba(13,23,16,.82); font-size: 14px; }
+
+.tvScanlines { position: absolute; z-index: 5; inset: 0; background: repeating-linear-gradient(180deg, transparent 0 3px, rgba(244,240,232,.026) 3px 4px); mix-blend-mode: screen; pointer-events: none; }
+.tvScreen.isPlaying .tvScanlines { opacity: .34; }
+
+.tvControlRail { display: flex; flex-direction: column; align-items: center; padding: 8px 4px 2px; color: var(--ink); }
+.tvBrand { margin: 3px 0 24px; color: #637725; font-size: 12px; font-weight: 800; letter-spacing: .14em; }
+.tvDial { width: 44px; height: 44px; display: block; margin-bottom: 18px; border: 1px solid rgba(17,18,15,.58); border-radius: 50%; background: radial-gradient(circle, #d9e478 0 8%, #86816e 9% 15%, #c9c4b3 16% 54%, #8d8878 55% 60%, #d8d4c5 61%); box-shadow: 3px 4px 0 rgba(17,18,15,.16); }
+.tvDialLarge { width: 55px; height: 55px; }
+.tvVent { width: 64px; height: 84px; margin-top: 8px; background: repeating-linear-gradient(90deg, rgba(17,18,15,.58) 0 2px, transparent 2px 7px); }
+.tvPowerLight { width: 10px; height: 10px; margin-top: auto; border-radius: 50%; background: var(--lime-deep); box-shadow: 0 0 9px rgba(147,189,39,.48); }
+.tvBase { height: 26px; display: flex; justify-content: space-between; padding: 0 74px; }
+.tvBase span { width: 122px; height: 18px; display: block; background: #a6a190; clip-path: polygon(6% 0, 94% 0, 100% 100%, 0 100%); box-shadow: inset 0 2px 0 rgba(255,255,255,.38); }
+
+.ticketCarousel { display: grid; grid-template-columns: 52px minmax(0, 1fr) 52px; align-items: center; gap: 12px; }
+.ticketArrow { width: 48px; height: 48px; padding: 0; border: 1px solid var(--line); border-radius: 50%; color: var(--ink); background: rgba(244,240,232,.84); font-size: 20px; transition: color 180ms ease, background 180ms ease, transform 180ms ease; }
+.ticketArrow:hover, .ticketArrow:focus-visible { color: var(--paper); background: var(--ink); outline: 2px solid var(--lime-deep); outline-offset: 2px; }
+.ticketArrow:active { transform: scale(.94); }
+
+.ticketTrack { display: flex; gap: 18px; padding: 28px 14px 38px; overflow-x: auto; overflow-y: visible; scroll-snap-type: x mandatory; scrollbar-width: thin; scrollbar-color: var(--lime-deep) rgba(17,18,15,.08); cursor: grab; touch-action: pan-x; }
+.ticketTrack:active { cursor: grabbing; }
+.ticketTrack::-webkit-scrollbar { height: 4px; }
+.ticketTrack::-webkit-scrollbar-track { background: rgba(17,18,15,.08); }
+.ticketTrack::-webkit-scrollbar-thumb { background: var(--lime-deep); }
+
+.movieTicket {
+  --ticket-bg: #d0c7b0;
+  width: 270px;
+  height: 154px;
+  position: relative;
+  flex: 0 0 270px;
+  scroll-snap-align: center;
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 8px;
+  padding: 16px 54px 14px 20px;
+  font-family: "Bodoni MT", Didot, "Songti SC", STSong, SimSun, serif;
+  border: 1px solid rgba(37,35,27,.66);
+  border-radius: 2px;
+  color: #26251f;
+  background-color: var(--ticket-bg);
+  background-image:
+    radial-gradient(circle at 17% 21%, rgba(79,61,38,.075) 0 .7px, transparent .9px),
+    radial-gradient(circle at 71% 64%, rgba(79,61,38,.055) 0 .6px, transparent .85px),
+    linear-gradient(105deg, rgba(255,255,255,.22), transparent 48%, rgba(60,49,28,.07));
+  background-size: 9px 9px, 13px 13px, 100% 100%;
+  text-align: left;
+  box-shadow: inset 0 0 0 1px rgba(255,250,224,.28), 6px 8px 0 rgba(17,18,15,.09), 0 14px 24px rgba(17,18,15,.06);
+  transform: rotate(var(--ticket-angle, -1deg));
+  transition: transform 340ms cubic-bezier(.16,1,.3,1), box-shadow 260ms ease, border-color 180ms ease;
+}
+
+.movieTicket:nth-child(even) { --ticket-angle: .7deg; }
+.movieTicket:nth-child(3n) { --ticket-angle: -.35deg; }
+.movieTicket::before, .movieTicket::after { content: ""; width: 15px; height: 15px; position: absolute; right: 37px; border: 1px solid rgba(37,35,27,.52); border-radius: 50%; background: var(--paper); }
+.movieTicket::before { top: -8px; }
+.movieTicket::after { bottom: -8px; }
+.movieTicket:hover, .movieTicket:focus-visible { transform: translateY(-7px) rotate(0); outline: none; border-color: rgba(17,18,15,.9); box-shadow: inset 0 0 0 1px rgba(255,250,224,.4), 8px 12px 0 rgba(17,18,15,.12), 0 18px 28px rgba(17,18,15,.1); }
+.movieTicket.isSelected { transform: translateY(-12px) rotate(0); border-width: 2px; box-shadow: inset 0 0 0 1px rgba(255,250,224,.45), 10px 15px 0 rgba(17,18,15,.15), 0 20px 30px rgba(17,18,15,.12); }
+.ticketNumber { color: rgba(38,37,31,.62); font-family: "Courier New", monospace; font-size: 10px; font-weight: 800; letter-spacing: .1em; }
+.movieTicket strong { align-self: center; max-height: 2.45em; overflow: hidden; font-size: 21px; font-weight: 600; line-height: 1.18; letter-spacing: .02em; }
+.ticketType { font-family: "Courier New", monospace; font-size: 10px; font-weight: 700; letter-spacing: .04em; }
+.ticketBarcode { width: 24px; position: absolute; top: 22px; right: 23px; bottom: 22px; border-left: 1px dashed rgba(38,37,31,.36); background: repeating-linear-gradient(90deg, transparent 0 5px, rgba(38,37,31,.68) 5px 7px, transparent 7px 10px); }
+.ticketTone-lime { --ticket-bg: #b9bd91; }
+.ticketTone-coral { --ticket-bg: #b99684; }
+.ticketTone-blue { --ticket-bg: #9eafb5; }
+.ticketTone-yellow { --ticket-bg: #c6ad79; }
+.ticketTone-mint { --ticket-bg: #a8b49e; }
+.ticketTone-pink { --ticket-bg: #b39aa0; }
+
+@keyframes tvEnter { to { opacity: 1; transform: translateY(0); } }
+@keyframes idleBoot { 0% { opacity: 0; transform: scaleY(.02) scaleX(.65); filter: brightness(2); } 48% { opacity: 1; transform: scaleY(.06) scaleX(1); } 100% { opacity: 1; transform: scale(1); filter: brightness(1); } }
+@keyframes screenWipe { 0% { transform: translateX(-130%); } 100% { transform: translateX(130%); } }
+
+@media (max-width: 1020px) {
+  .videoPortfolio { padding-inline: 18px; }
+  .retroTelevision { width: min(900px, 94vw); }
+  .tvCabinet { grid-template-columns: minmax(0, 1fr) 88px; padding: 18px; }
+  .tvControlRail { padding-inline: 0; }
+  .tvVent { width: 48px; }
+  .ticketCarousel { grid-template-columns: 44px minmax(0, 1fr) 44px; gap: 6px; }
+  .ticketArrow { width: 40px; height: 40px; }
+}
+
+@media (max-width: 760px) {
+  .videoPortfolio { padding: 44px 0 34px; }
+  .videoPortfolioHeader { padding-inline: 18px; }
+  .videoPortfolioHeader h3 { font-size: 43px; }
+  .videoShowcase { min-height: 330px; padding: 28px 10px 10px; }
+  .retroTelevision { width: 96vw; }
+  .tvCabinet { grid-template-columns: minmax(0, 1fr) 58px; gap: 8px; padding: 10px; border-radius: 10px; box-shadow: 10px 13px 0 rgba(17,18,15,.1); }
+  .tvScreenBezel { padding: 7px; border-radius: 20px; }
+  .tvScreen { border-radius: 15px; }
+  .tvIdleTitle { gap: 16px; }
+  .tvIdleTitle span { font-size: 37px; }
+  .tvIdleStart { min-width: 132px; padding: 9px 14px; font-size: 13px; }
+  .tvPlayButton { width: 54px; height: 54px; }
+  .tvPlayButton span { font-size: 18px; }
+  .tvBrand { margin-bottom: 10px; font-size: 8px; }
+  .tvDial { width: 27px; height: 27px; margin-bottom: 9px; }
+  .tvDialLarge { width: 33px; height: 33px; }
+  .tvVent { width: 30px; height: 42px; margin-top: 2px; background-size: auto; }
+  .tvPowerLight { width: 7px; height: 7px; }
+  .tvBase { height: 18px; padding: 0 36px; }
+  .tvBase span { width: 72px; height: 12px; }
+  .ticketCarousel { grid-template-columns: 1fr; }
+  .ticketArrow { display: none; }
+  .ticketTrack { gap: 12px; padding: 24px 18px 34px; }
+  .movieTicket { width: 240px; height: 140px; flex-basis: 240px; padding: 14px 48px 12px 16px; }
+  .movieTicket strong { font-size: 18px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .retroTelevision { opacity: 1; transform: none; }
+  .videoPortfolio.isVisible .retroTelevision, .videoPortfolio.isVisible .tvIdleTitle, .tvScreen.hasSelection::after { animation: none; }
+  .movieTicket, .ticketArrow, .tvPlayButton { transition: none; }
+}
