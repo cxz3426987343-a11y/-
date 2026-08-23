@@ -1587,3 +1587,471 @@ section.sectionPad > .sectionNav { margin-top: calc(var(--section-pad-top) * -1)
   .contactClosingCopy h2 .contactTitleBlur { flex-wrap: wrap; white-space: normal; }
   .idCardLanyard { top: -126px; transform: translateX(-50%) scale(.76); transform-origin: bottom center; }
 }
+
+.heroPlayPrompt {
+  display: none;
+}
+
+@media (max-width: 760px) {
+  .heroPlayPrompt {
+    display: block;
+    position: absolute;
+    z-index: 8;
+    left: 50%;
+    top: 58%;
+    transform: translate(-50%, -50%);
+    min-width: 112px;
+    min-height: 42px;
+    padding: 0 18px;
+    border: 1px solid rgba(17,18,15,.32);
+    border-radius: 999px;
+    color: var(--ink);
+    background: rgba(244,240,232,.82);
+    box-shadow: 0 10px 26px rgba(17,18,15,.14);
+    backdrop-filter: blur(10px);
+    font-size: 13px;
+    font-weight: 800;
+  }
+}/* mobile-responsive-final */
+@media (max-width: 760px) {
+  html,
+  body,
+  #root {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
+  }
+
+  main {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
+    padding-top: 0;
+  }
+
+  .wideShell {
+    width: min(100% - 28px, 680px);
+    max-width: 100%;
+  }
+
+  .hero {
+    min-height: 100svh;
+    height: auto;
+    display: block;
+    overflow: hidden;
+  }
+
+  .heroMedia {
+    position: absolute;
+    inset: 0;
+    min-height: 100%;
+  }
+
+  .heroMediaFallback {
+    opacity: .82;
+  }
+
+  .heroVideo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: none;
+    opacity: .2;
+  }
+
+  .hero .sectionNav {
+    position: relative;
+    z-index: 12;
+    width: calc(100% - 28px);
+    min-height: 58px;
+    margin: 0 auto;
+  }
+
+  .hero .sectionNav .navLinks {
+    display: none;
+  }
+
+  .heroHeadlineOverlay {
+    position: relative;
+    inset: auto;
+    z-index: 6;
+    width: min(100% - 28px, 680px);
+    margin: 34px auto 0;
+    transform: none;
+    pointer-events: none;
+  }
+
+  .heroFlatTitle {
+    gap: 7px;
+    align-items: flex-start;
+  }
+
+  .heroFlatName {
+    max-width: 100%;
+    font-size: clamp(58px, 17vw, 96px);
+    line-height: .9;
+    letter-spacing: .02em;
+    white-space: nowrap;
+  }
+
+  .heroFlatPortfolio {
+    max-width: 100%;
+    font-size: clamp(34px, 9vw, 54px) !important;
+    line-height: .95;
+    letter-spacing: .06em;
+    white-space: nowrap;
+  }
+
+  .heroInner {
+    width: min(100% - 28px, 680px);
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 22px;
+    padding: 28px 0 44px;
+    transform: none;
+  }
+
+  .heroGhostTitle,
+  .heroCopy > h1,
+  .heroSubtitle,
+  .heroAside {
+    display: none;
+  }
+
+  .heroCopy {
+    width: 100%;
+    max-width: none;
+    order: 1;
+  }
+
+  .heroActions {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    width: 100%;
+    margin-top: 0;
+    transform: none;
+  }
+
+  .heroActions .primaryButton,
+  .heroActions .ghostButton {
+    width: 100%;
+    min-height: 50px;
+  }
+
+  .heroCharacter {
+    width: min(86vw, 360px);
+    min-width: 0;
+    height: min(72svh, 430px);
+    margin: 0 auto;
+    order: 2;
+    transform: translateY(-4px);
+  }
+
+  .characterFrame {
+    width: 75%;
+    height: 94%;
+  }
+
+  .characterTag {
+    right: 0;
+    top: 20%;
+  }
+
+  .curvedLoop {
+    width: 100%;
+    padding: 0 14px 18px;
+  }
+
+  .curvedLoopTrack {
+    justify-content: flex-start;
+    gap: 24px;
+    font-size: 11px;
+    letter-spacing: .12em;
+  }
+
+  .heroPlayPrompt {
+    top: 50%;
+    left: 50%;
+    z-index: 10;
+  }
+
+  .designPortfolio,
+  .designDeckView,
+  .designGalleryView {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .designDeckView {
+    min-height: 720px;
+    padding: 42px 0 26px;
+  }
+
+  .designDeckHeader {
+    padding-inline: 14px;
+  }
+
+  .designDeckHeader h3 {
+    font-size: clamp(42px, 12vw, 56px);
+  }
+
+  .designDeckStage {
+    height: 470px;
+    margin-top: 28px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-x;
+    scrollbar-width: none;
+  }
+
+  .designCardDeck {
+    min-width: max-content;
+    height: 390px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px max(14px, calc((100vw - 286px) / 2)) 32px;
+  }
+
+  .designCategorySlot {
+    width: min(76vw, 286px);
+    height: min(112vw, 392px);
+    min-width: 248px;
+    max-height: 392px;
+    position: relative;
+    inset: auto;
+    flex: 0 0 auto;
+    scroll-snap-align: center;
+    transform: none;
+  }
+
+  .designCategoryCard {
+    touch-action: manipulation;
+  }
+
+  .designCategoryCard:hover,
+  .designCategoryCard:focus-visible {
+    transform: translateY(-6px);
+  }
+
+  .designGalleryView {
+    min-height: 760px;
+    padding-top: 18px;
+  }
+
+  .designGalleryHeader {
+    grid-template-columns: 42px minmax(0, 1fr);
+    gap: 12px;
+    padding-inline: 14px;
+  }
+
+  .orbitGalleryHeading {
+    min-width: 0;
+    text-align: left;
+  }
+
+  .orbitGalleryHeading h3 {
+    overflow-wrap: anywhere;
+    font-size: clamp(25px, 8vw, 36px);
+  }
+
+  .orbitStage {
+    height: min(68svh, 560px);
+    min-height: 430px;
+    touch-action: pan-y;
+    overscroll-behavior: contain;
+  }
+
+  .orbitFrame.isCurrent {
+    max-width: calc(100vw - 34px);
+  }
+
+  .orbitImageWrap img {
+    max-width: calc(100vw - 34px);
+    max-height: min(58svh, 480px);
+  }
+
+  .orbitFrame.isPrevious,
+  .orbitFrame.isNext {
+    opacity: .24;
+  }
+
+  .orbitControls {
+    height: 70px;
+    gap: 22px;
+  }
+
+  .orbitControls button {
+    width: 48px;
+    height: 42px;
+  }
+
+  .contactClosing {
+    width: 100%;
+    min-height: auto;
+    overflow: hidden;
+  }
+
+  .contactClosingInner {
+    width: min(100% - 28px, 680px);
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 30px;
+    padding: 68px 0 54px;
+  }
+
+  .contactClosingCopy {
+    width: 100%;
+    max-width: none;
+  }
+
+  .contactClosingCopy h2,
+  .contactClosingCopy h2 .contactTitleBlur {
+    max-width: 100%;
+    white-space: normal;
+  }
+
+  .contactClosingCopy h2 {
+    font-size: clamp(38px, 10.5vw, 56px);
+    line-height: 1.08;
+  }
+
+  .contactDetails {
+    width: 100%;
+    margin-top: 28px;
+  }
+
+  .contactDetails a {
+    min-height: 58px;
+    grid-template-columns: 48px minmax(0, 1fr);
+    gap: 10px;
+  }
+
+  .contactDetails strong {
+    min-width: 0;
+    font-size: clamp(15px, 4.4vw, 20px);
+    overflow-wrap: anywhere;
+  }
+
+  .contactActions {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    width: 100%;
+    margin-top: 22px;
+  }
+
+  .contactActionPrimary,
+  .contactActionGhost {
+    width: 100%;
+    min-width: 0;
+    min-height: 54px;
+  }
+
+  .idCardStage {
+    width: 100%;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 42px;
+    padding: 44px 0 20px;
+    perspective: none;
+  }
+
+  .idCardCharacter,
+  .idCard {
+    position: relative;
+    inset: auto;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    top: auto;
+    flex: 0 0 auto;
+    margin: 0;
+  }
+
+  .idCardCharacter {
+    width: min(76vw, 300px);
+    align-self: flex-end;
+    aspect-ratio: 3 / 4.35;
+    transform: rotate(3deg);
+  }
+
+  .idCardCharacter img {
+    object-fit: cover;
+  }
+
+  .idCard {
+    width: 100%;
+    min-height: 304px;
+    aspect-ratio: auto;
+    padding: 14px;
+    transform: rotate(-2deg);
+  }
+
+  .idCardHeader {
+    height: 42px;
+    gap: 8px;
+  }
+
+  .idCardHeader img {
+    width: 112px;
+    height: 32px;
+  }
+
+  .idCardBody {
+    grid-template-columns: 34% minmax(0, 1fr);
+    gap: 12px;
+    padding-top: 11px;
+  }
+
+  .idCardPortraitWrap {
+    aspect-ratio: .82 / 1;
+  }
+
+  .idCardPortraitWrap img {
+    object-fit: contain;
+    background: #fff;
+  }
+
+  .idCardInfo h3 {
+    margin: 5px 0 9px;
+    font-size: clamp(24px, 7vw, 34px);
+  }
+
+  .idCardInfo dl {
+    gap: 5px;
+  }
+
+  .idCardInfo dl div {
+    grid-template-columns: 32px minmax(0, 1fr);
+    gap: 5px;
+  }
+
+  .idCardInfo dt {
+    font-size: 8px;
+  }
+
+  .idCardInfo dd {
+    font-size: clamp(9px, 2.8vw, 12px);
+    overflow-wrap: anywhere;
+  }
+
+  .idCardFooter {
+    right: 14px;
+    bottom: 8px;
+    left: 14px;
+    padding-top: 5px;
+    font-size: 6px;
+  }
+}

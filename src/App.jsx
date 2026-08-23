@@ -135,6 +135,8 @@ const HERO_RESTART_DELAY_MS = 60000;
 
 function PausedLoopVideo({ className }) {
   const videoRef = useRef(null);
+  const [needsPlay, setNeedsPlay] = useState(false);
+  const isHeroVideo = className?.split(/\s+/).includes("heroVideo");
 
   useEffect(() => {
     const video = videoRef.current;
@@ -153,7 +155,13 @@ function PausedLoopVideo({ className }) {
       if (disposed) return;
       video.muted = true;
       video.playsInline = true;
-      video.play().catch(() => undefined);
+      video.play()
+        .then(() => {
+          if (isHeroVideo) setNeedsPlay(false);
+        })
+        .catch(() => {
+          if (isHeroVideo && !disposed) setNeedsPlay(true);
+        });
     };
 
     const restartFromBeginning = () => {
@@ -200,9 +208,29 @@ function PausedLoopVideo({ className }) {
   }, []);
 
   return (
-    <video ref={videoRef} className={className} muted playsInline autoPlay preload="auto">
-      <source src={HERO_VIDEO_SRC} type="video/mp4" />
-    </video>
+    <>
+      <video ref={videoRef} className={className} muted playsInline autoPlay preload="auto" poster="/assets/hero/hero-poster.jpg">
+        <source src={HERO_VIDEO_SRC} type="video/mp4" />
+      </video>
+      {isHeroVideo && needsPlay && (
+        <button
+          className="heroPlayPrompt"
+          type="button"
+          aria-label="播放封面视频"
+          onClick={() => {
+            const video = videoRef.current;
+            if (!video) return;
+            video.muted = true;
+            video.playsInline = true;
+            video.play()
+              .then(() => setNeedsPlay(false))
+              .catch(() => setNeedsPlay(true));
+          }}
+        >
+          点击播放
+        </button>
+      )}
+    </>
   );
 }
 
@@ -487,6 +515,19 @@ function App() {
   }
 
   function handlePagePointerDown(event) {
+    if (window.matchMedia(' (max-width: 760px) ').matches) {
+      document.querySelectorAll('video').forEach((video) => {
+        video.muted = true;
+        video.playsInline = true;
+        video.play()
+        .then(() => {
+          if (isHeroVideo) setNeedsPlay(false);
+        })
+        .catch(() => {
+          if (isHeroVideo && !disposed) setNeedsPlay(true);
+        });
+      });
+    }
     if (!event.target.closest("button, a")) return;
     const spark = { id: `${Date.now()}-${Math.random()}`, x: event.clientX, y: event.clientY, startTime: performance.now() };
     setSparks((current) => [...current.slice(-5), spark]);
