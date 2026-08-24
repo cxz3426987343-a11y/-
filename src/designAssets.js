@@ -285,6 +285,34 @@ const designCategories = [
         "width": 978,
         "height": 2200,
         "name": "考研慰问海报4"
+      },
+      {
+        "src": "/assets/design/posters/24.webp",
+        "alt": "活动海报作品 24",
+        "width": 530,
+        "height": 977,
+        "name": "懂车帝吉利银河星愿海报"
+      },
+      {
+        "src": "/assets/design/posters/25.webp",
+        "alt": "活动海报作品 25",
+        "width": 2700,
+        "height": 4963,
+        "name": "懂车帝吉利银河M9海报"
+      },
+      {
+        "src": "/assets/design/posters/26.webp",
+        "alt": "活动海报作品 26",
+        "width": 1080,
+        "height": 1985,
+        "name": "懂车帝吉利银河星瑞海报"
+      },
+      {
+        "src": "/assets/design/posters/27.webp",
+        "alt": "活动海报作品 27",
+        "width": 1080,
+        "height": 1985,
+        "name": "懂车帝深蓝S05海报"
       }
     ]
   },
@@ -512,7 +540,7 @@ const designCategories = [
 const assetOrders = {
   logo: [6, 5, 3, 2, 4, 1],
   atmosphere: [1, 2, 5, 3, 7, 8, 4, 6],
-  posters: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 18, 11, 12, 13, 14, 15, 16, 19, 20, 22, 23, 17],
+  posters: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 18, 11, 12, 13, 14, 15, 16, 19, 20, 22, 23, 17, 24, 25, 26, 27],
   community: [1, 4, 6, 2, 3, 5, 7, 8, 9],
   training: [2, 7, 1, 6, 3, 4, 5],
   projects: [1, 8, 2, 7, 3, 10, 9, 11, 4, 5, 6],
